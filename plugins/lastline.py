@@ -1,10 +1,10 @@
 import logging
-from monitor import ServiceMonitor
+from monitor import Monitor
 
-__author__='Junkai Zhang'
+__author__='Jason B'
 __plugin_type__ = 'services'
 
-class Lastline(ServiceMonitor):
+class Lastline(Monitor):
     def run(self):
         logging.error("this is lastline run")
 

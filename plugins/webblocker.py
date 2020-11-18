@@ -1,10 +1,10 @@
 import logging
-from monitor import ServiceMonitor
+from monitor import Monitor
 
-__author__='Junkai Zhang'
+__author__='Jay Chou'
 __plugin_type__ = 'services'
 
-class Webblocker(ServiceMonitor):
+class Webblocker(Monitor):
     def run(self):
         logging.error("this is Webblocker run")
 

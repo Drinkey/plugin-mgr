@@ -10,34 +10,40 @@ logging.basicConfig(level=LOG_LEVEL,
                     )
 
 
-def plugin_loader(plugin_module_name):
+def import_plugin(plugin_module_name):
     return importlib.import_module(plugin_module_name)
+
+
+def is_legal_plugin(plugin):
+    return not plugin.startswith('__') and not plugin.endswith('pyc')
+
 
 def get_plugins(plugin_path):
     files = os.listdir(plugin_path)
     print(files)
-    return [x.split('.')[0] for x in files if not x.startswith('__') and not x.endswith('pyc')]
+    return [x.split('.')[0] for x in files if is_legal_plugin(x)]
+
 
 def get_plugin_name(plugin_name):
     return '{0}.{1}'.format(PLUGIN_FOLDER, plugin_name)
 
+
 class PluginMgr(object):
-    
-    def __init__(self):
+    def launch(self):
         for plugin in get_plugins(PLUGIN_FOLDER):
             logging.error("Detected plugin: [{0}]".format(plugin))
             try:
-                self.load(plugin)
+                self._load(plugin)
             except Exception as e:
-                logging.debug("Encountered exception, but continue execution.")
+                logging.debug("Encountered exception, run next plugin.")
                 logging.error(e)
             logging.error("----------")
 
-    def load(self, plugin):
+    def _load(self, plugin):
         plugin_name = get_plugin_name(plugin)
         
         logging.info("Loading plugin [{0}]".format(plugin))
-        plugin_module_obj = plugin_loader(plugin_name)
+        plugin_module_obj = import_plugin(plugin_name)
         logging.debug("Author:{0}".format(plugin_module_obj.__author__))
         logging.debug("Type:{0}".format(plugin_module_obj.__plugin_type__))
         
@@ -51,4 +57,4 @@ class PluginMgr(object):
         obj.run()
         logging.error("Plugin [{0}] execution completed.".format(plugin))
     
-x = PluginMgr()
+x = PluginMgr().launch()

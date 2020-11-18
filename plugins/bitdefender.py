@@ -1,9 +1,9 @@
 import logging
-from monitor import ServiceMonitor
+from monitor import Monitor
 
-__author__='Junkai Zhang'
-__plugin_type__ = 'in-feed'
+__author__='Steven Rogers'
+__plugin_type__ = 'feeds'
 
-class Bitdefender(ServiceMonitor):
+class Bitdefender(Monitor):
     def run(self):
         logging.error("this is Bitdefender run")

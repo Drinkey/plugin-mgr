@@ -1,10 +1,10 @@
 import logging
 
-from monitor import ServiceMonitor
+from monitor import Monitor
 
-__author__='Junkai Zhang'
-__plugin_type__ = 'in-feed'
+__author__='Winter'
+__plugin_type__ = 'feeds'
 
-class Cyren(ServiceMonitor):
+class Cyren(Monitor):
     def run(self):
         logging.error("this is Cyren run")

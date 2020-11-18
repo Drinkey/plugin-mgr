@@ -1,9 +1,11 @@
 import logging
+import abc
 
-class ServiceMonitor(object):
+class Monitor(abc.ABC):
     def __init__(self):
-       logging.debug("[init] service monitor")
+       logging.debug("[init] launching monitor")
 
+    @abc.abstractmethod
     def run(self):
         pass
 
